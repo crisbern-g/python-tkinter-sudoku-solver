@@ -16,6 +16,19 @@ board = [
     [0,0,0,0,0,0,0,0,0], 
 ]
 
+fgColors = [
+    ['black','black','black','black','black','black','black','black','black'], 
+    ['black','black','black','black','black','black','black','black','black'], 
+    ['black','black','black','black','black','black','black','black','black'], 
+    ['black','black','black','black','black','black','black','black','black'], 
+    ['black','black','black','black','black','black','black','black','black'], 
+    ['black','black','black','black','black','black','black','black','black'], 
+    ['black','black','black','black','black','black','black','black','black'], 
+    ['black','black','black','black','black','black','black','black','black'], 
+    ['black','black','black','black','black','black','black','black','black'], 
+]
+
+
 class EntryBox(tk.Entry):
     def __init__(self, root, row, column, number, bgColor, fgColor):
         self.row = row
@@ -67,23 +80,17 @@ def createGrid():
             number = board[row][column]
             if number == 0:
                 number = ''
+                fgColors[row][column] = 'black'
             
-            EntryBox(boardPanel, row, column, number, color, 'black')
+            EntryBox(boardPanel, row, column, number, color, fgColors[row][column])
 
 def clearGrid():
     for row in range(9):
         for column in range(9):
-            box_row = row // 3
-            box_column = column //3
-
             board[row][column] = 0
-
-            if (box_row == 0 and box_column == 0) or (box_row == 0 and box_column == 2) or (box_row == 1 and box_column == 1) or (box_row == 2 and box_column == 0) or (box_row == 2 and box_column == 2):
-                color= 'gray90'
-            else:
-                color = 'white'
-
-            EntryBox(boardPanel, row, column, '', color, 'black')
+            fgColors[row][column] = 'black'
+    
+    createGrid()
 
 
 def solvePuzzle():
@@ -97,7 +104,14 @@ def solvePuzzle():
                 if not solver.isValid(board, value, (row, column)):
                     puzzleValidity = False
 
-    if puzzleValidity:            
+    if puzzleValidity:
+        for row in range (0, 9):
+            for column in range(0,9):
+                if board[row][column] == 0:
+                    fgColors[row][column] = 'green4'
+                else:
+                    fgColors[row][column] = 'black'
+
         solver.solve(board)
         createGrid()
     else:
