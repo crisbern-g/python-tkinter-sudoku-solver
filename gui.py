@@ -73,7 +73,7 @@ def createGrid():
             box_column = column //3
 
             if (box_row == 0 and box_column == 0) or (box_row == 0 and box_column == 2) or (box_row == 1 and box_column == 1) or (box_row == 2 and box_column == 0) or (box_row == 2 and box_column == 2):
-                color= 'gray90'
+                color= 'gray80'
             else:
                 color = 'white'
 
@@ -108,7 +108,7 @@ def solvePuzzle():
         for row in range (0, 9):
             for column in range(0,9):
                 if board[row][column] == 0:
-                    fgColors[row][column] = 'green4'
+                    fgColors[row][column] = 'blue2'
                 else:
                     fgColors[row][column] = 'black'
 
